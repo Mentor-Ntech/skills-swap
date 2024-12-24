@@ -1,26 +1,33 @@
-import React from 'react'
+import React from "react";
+import { useGlobalState } from "../../store";
 
-const HomeDash = ({details}) => {
+const HomeDash = () => {
+  const [skills] = useGlobalState("skills");
+
   return (
-    <div className="dashboard">
-    <h2 className="text-xl font-bold">Dashboard</h2>
-    <ul>
-      {details.map((item, index) => (
-        <li key={index} className="my-4 p-4 border rounded-lg shadow-md">
-          <h3 className="text-lg font-semibold">{item.title}</h3>
-          <p>Price: {item.price} CELO</p>
-          <p>Description: {item.description}</p>
-          {item.fileUrl && (
+    <div className="p-4">
+      <h1 className="text-xl font-bold mb-4">Skills Dashboard</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {skills.map((skill, index) => (
+          <div
+            key={index}
+            className="p-4 border rounded-lg shadow-lg bg-white text-gray-700"
+          >
             <img
-              src={URL.createObjectURL(item.fileUrl)}
-              alt={item.title}
-              className="w-20 h-20 object-cover mt-2"
+              src={
+                skill.imgBase64 ||
+                "https://www.shutterstock.com/image-vector/picture-icon-vector-260nw-1353828443.jpg"
+              }
+              alt={skill.title}
+              className="w-full h-32 object-cover rounded-lg mb-2"
             />
-          )}
-        </li>
-      ))}
-    </ul>
-  </div>
+            <h2 className="text-lg font-bold">{skill.title}</h2>
+            <p className="text-gray-600">Price: {skill.price} CELO</p>
+            <p className="text-gray-600">{skill.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
 

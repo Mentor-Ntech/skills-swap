@@ -14,6 +14,8 @@ function App() {
           </Layout>
         }
       />
+
+        <Route path="/homedash" element={<HomeDash />} />
     </Routes>
   );
 }

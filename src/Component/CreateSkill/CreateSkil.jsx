@@ -8,11 +8,15 @@ import {
   import { AiOutlineCloseCircle } from "react-icons/ai";
 //   import { mintNFT, uploadToPinata } from "../Blockchain.services";
   import { FiUpload } from "react-icons/fi";
+  import { useNavigate } from 'react-router-dom';
+
   
   const style = { color: "white", fontSize: "1.5em" };
   
 
 const CreateSkil = () => {
+
+  
 
 //   const [isMinting, setIsMinting] = useState(false);
   const [modal] = useGlobalState("modal");
@@ -22,8 +26,13 @@ const CreateSkil = () => {
   const [fileUrl, setFileUrl] = useState("");
   const [imgBase64, setImgBase64] = useState(null);
 
+  const [skills, setSkills] = useGlobalState('skills')
   
-  const handleSubmit = async (e) => {e.preventDefault();};
+  const handleSubmit = async (e) => {e.preventDefault();
+
+    const newSkill = {title, price, description, imgBase64};
+    setSkills([...skills, newSkill]);
+  };
 
   
 
@@ -52,6 +61,13 @@ const CreateSkil = () => {
     setPrice("");
     setDescription("");
   };
+
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/homedash");
+  }
+
   return (
     <div
     className={`fixed top-0 left-0 w-screen h-screen
@@ -147,6 +163,7 @@ const CreateSkil = () => {
         </div>
         <button
           type="submit"
+          onClick={handleClick}
           className="flex flex-row justify-center items-center
             w-full text-white 
             font-semibold
@@ -155,6 +172,7 @@ const CreateSkil = () => {
             focus:outline-none focus:ring mt-5"
         >
           {/* {isMinting ? "Minting" : "Mint Now"} */}
+          
 
           Create Skills
         </button>
